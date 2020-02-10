@@ -1,6 +1,6 @@
 <?php
 
-	echo '<link type="text/css" rel="stylesheet" href="styles.css?<?php echo time(); ?>"/>';
+	echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">';
 
    	$var1= "Uepaje!";
 
@@ -67,11 +67,19 @@
 </head>
 
 <body>
-	<header >
-		<p >Este es el header, okey?</p>
-	</header>
+	<nav class="navbar navbar-dark" style="background-color: #4A5159;">
+		<div class="input-group mb-3 w-50">
+  			<div class="input-group-prepend">
+    			<button class="btn btn-outline-light btn-dark" style="background-color: #4A5159;" type="button" id="button-addon1"> < </button>
+  			</div>
+  			<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+  			<div class="input-group-prepend">
+    			<button class="btn btn-outline-light btn-dark" style="background-color: #4A5159;" type="button" id="button-addon1"> Explorar </button>
+  			</div>
+		</div>
+	</nav>
 
-	<section class="container">
+	<section class="d-flex flex-row flex-wrap p-4">
 		<?php foreach($files as $file):?>		
 			<div class="fileDiv"> 
 				<img src= <?php echo $file->get_icon_name(); ?> height="120" width = "120">

@@ -65,6 +65,6 @@ function fileTouched(fileName){
 	selectedFileName= fileName;
 
   	document.getElementById("optionsDiv").style.display = "block";
-	document.getElementById(fileNameText.concat(selectedFileName)).style.backgroundColor= "#272727";
+	document.getElementById(fileNameText.concat(selectedFileName)).style.backgroundColor= "#E8520C";
 	document.getElementById(fileNameText.concat(selectedFileName)).style.color= "white";
 }

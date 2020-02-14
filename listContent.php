@@ -70,6 +70,7 @@
 	class File{
 		public $name;
 		public $isDirectory;
+		public $permissions;
 
 		function __construct($line, $isDirectory){
 			//quitar espacios extra
@@ -78,6 +79,7 @@
 			$explodedLine = explode(" ", $line);
 			$this->name = $explodedLine[8];
 			$this->isDirectory = $isDirectory;
+			$this->permissions = str_split($explodedLine[0]);
 		}
 
 		function get_name(){ return $this->name;	}
@@ -87,6 +89,14 @@
 				return "folderIcon.png";
 			}else{
 				return "fileIcon.png";
+			}
+		}
+		function check_permissions($index, $letter){
+			if (strcmp($this->permission[$index], $letter) === 0){
+				return True;
+			}
+			else{
+				return False;
 			}
 		}
 

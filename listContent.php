@@ -39,12 +39,13 @@
 		}
 
 
+
 		echo '<div id="current_path" style="display: none;"">'. $current_path .'</div>';
 		foreach($files as $file){	
 			$name = $file->get_name();
 			echo '<div class="fileDiv" id="'.$name.'" onclick="fileTouched('."'".$name."'".');" > 
 					<img src= "'. $file->get_icon_name() .'" height="120" width = "120">
-					<p class="fileName" id="file_name_text_'.$name.'"> '. $name .'</p>
+					<p class="fileName" id="file_name_text_'.$name.'"> '. $name.'</p>
 				</div>';
 
 		
@@ -102,6 +103,7 @@
 		public $permissions;
 		public $full_path;
 		public $father_route;
+		public $rename_command;
 
 		function __construct($line, $isDirectory, $father_route){
 			//quitar espacios extra
@@ -112,6 +114,8 @@
 			$this->isDirectory = $isDirectory;
 			$this->permissions = str_split($explodedLine[0]);
 			$this->father_route = $father_route;
+
+			$this->full_path = $this->get_full_path($this->father_route, $this->name);
 			
 
 			if (substr($father_route , -1) === '/'){
@@ -143,7 +147,31 @@
 				return False;
 			}
 		}
-		function route(){ return $this->full_path;	}
+
+		function get_full_path($basePath, $name){
+
+		    if (substr($basePath , -1) === '/'){
+
+			    return  ($basePath. $name);
+
+			}
+		    else{
+			    return ($basePath. '/'. $name);
+		    }
+
+		}
+
+	    	function rename($new_name){
+			//$this->rename_command = 'mv '. $this->full_path. ' '. $this->father_route. $new_name;
+			$this->rename_command = 'mv /home/mayra/Documents/hola3.txt /home/mayra/Documents/'. $new_name;
+
+			exec($this->rename_command, $output, $error);
+			print_r($error); 
+
+		
+
+		}
+
 
 	}
 

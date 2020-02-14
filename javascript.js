@@ -23,18 +23,45 @@ function getFiles(){
     
 }
 
+function getParentFolderFiles(){
+	var inputPath = document.getElementById("inputPath").value;
+
+	if(inputPath=="/"){
+		console.log("Estás en carpeta principal");
+		return;
+	}
+
+	if((inputPath.length-1) == inputPath.lastIndexOf("/")){
+		inputPath= inputPath.substring(0, inputPath.lastIndexOf("/"));
+	}
+
+	if(inputPath.lastIndexOf("/") == 0){
+		inputPath= "/";
+	}else{
+		inputPath= inputPath.substring(0, inputPath.lastIndexOf("/"));}
+
+	document.getElementById("inputPath").value = inputPath;
+	getFiles();
+    
+}
+
 function fileTouched(fileName){
 	var fileNameText= "file_name_text_";
 
-	if(selectedFileName!=null){
+	if(selectedFileName!=null && document.getElementById(fileNameText.concat(selectedFileName))!=null){
+		document.getElementById("optionsDiv").style.display = "none";
 		document.getElementById(fileNameText.concat(selectedFileName)).style.backgroundColor= "white";
-		document.getElementById(fileNameText.concat(selectedFileName)).style.color= "black";
+		document.getElementById(fileNameText.concat(selectedFileName)).style.color= "#272727";
+	}
+
+	if(fileName.localeCompare(selectedFileName)==0){
+		selectedFileName=null;
+		return;
 	}
 
 	selectedFileName= fileName;
 
-	
-
-	document.getElementById(fileNameText.concat(fileName)).style.backgroundColor= "#4A5159";
-		document.getElementById(fileNameText.concat(selectedFileName)).style.color= "white";
+  	document.getElementById("optionsDiv").style.display = "block";
+	document.getElementById(fileNameText.concat(selectedFileName)).style.backgroundColor= "#272727";
+	document.getElementById(fileNameText.concat(selectedFileName)).style.color= "white";
 }

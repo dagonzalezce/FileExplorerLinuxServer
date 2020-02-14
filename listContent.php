@@ -1,13 +1,15 @@
 <?php
 	
-   	$current_path = "/home/david";
+   	$current_path;
    	$files = array();
 
-	function listFolderContent(){
+	function listFolderContent($path){
 		global $files;
 		global $current_path;
 
-		chdir($current_path);
+		chdir($path);
+
+		$current_path= getcwd();
 		
 		exec('ls -l',$filesArray,$error);
 
@@ -103,8 +105,7 @@
 	}
 
 	if (isset($_GET['path'])) { 
-		$current_path= $_GET['path'];
-		listFolderContent();
+		listFolderContent($_GET['path']);
 	 }
 
 

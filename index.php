@@ -10,7 +10,9 @@
  
 	include 'listContent.php';
 
-   	$var1= "Uepaje!";
+	$current_path="/";
+
+   	$var1 = "Uepaje!";
 
 
 ?>
@@ -21,21 +23,26 @@
 	<title>SO Explorador de archivos</title>
 </head>
 
-<body>
-	<nav class="navbar navbar-dark" style="background-color: #3D3D3D;">
-		<div class="input-group mb-3 w-50">
-  			<div class="input-group-prepend">
-    			<button class="btn btn-dark" style="background-color: #272727;" type="button" id="button-addon1"> < </button>
-  			</div>
-  			<input type="text" class="form-control" id="inputPath" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value= <?= $current_path ?>>
-  			<div class="input-group-prepend">
-    			<button onclick="getFiles();" class="btn btn-dark" style="background-color: #272727;" type="button" id="button-addon1" > Explorar </button>
-  			</div>
+<body style= "padding-top: 70px;">
+	<nav class="navbar navbar-dark fixed-top p-0" style="background-color: #3D3D3D;">
+		<div class="w-100">
+			<div class="input-group m-3 w-50">
+	  			<div class="input-group-prepend">
+	    			<button onclick="getParentFolderFiles();" class="btn btn-dark" style="background-color: #272727;" type="button" id="button-addon1"> < </button>
+	  			</div>
+	  			<input type="text" class="form-control" id="inputPath" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value= <?= $current_path ?> autocomplete= off>
+	  			<div class="input-group-prepend">
+	    			<button onclick="getFiles();" class="btn btn-dark" style="background-color: #272727;" type="button" id="button-addon1" > Explorar </button>
+	  			</div>
+			</div>
+		</div>
+		<div class ="w-100 mb-1 mt-3 p-1" style="background-color: white; display: none;" id="optionsDiv">
+			<button onclick="getParentFolderFiles();" class="btn btn-light btn-outline-dark" type="button" id="button-addon1"> Abrir </button>
 		</div>
 	</nav>
 
 	<section class="d-flex flex-row flex-wrap p-4 text-center" id="filesSection">
-		<?php listFolderContent(); ?>
+		<?php listFolderContent($current_path); ?>
 	</section>
 
 

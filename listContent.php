@@ -39,6 +39,7 @@
 		}
 
 
+		echo '<div id="current_path" style="display: none;"">'. $current_path .'</div>';
 		foreach($files as $file){	
 			$name = $file->get_name();
 			echo '<div class="fileDiv" id="'.$name.'" onclick="fileTouched('."'".$name."'".');" > 
@@ -51,6 +52,32 @@
 
 
 
+	}
+
+	function get_file($base_path, $name){
+		$file = null;
+
+		chdir($base_path);
+
+
+		exec('ls -l',$searchFileList,$error);
+
+		if($error){		
+			echo $error;
+			return null;
+		}
+
+		foreach ($searchFileList as $line) {
+			if (strpos($line, 'total') !== false) { continue;}
+			$foundFile= new File($line, isDirectory($line), $base_path);
+
+			if($foundFile->get_name() == $name){
+				$file= $foundFile;
+			}
+		}
+
+
+		return $file;
 	}
 
 	function get_current_path(){
@@ -119,10 +146,36 @@
 		function route(){ return $this->full_path;	}
 
 	}
-	if (isset($_GET['path'])) { 
-		listFolderContent($_GET['path']);
-	 }
 
+
+//---------------------------------------------------------------------
+	if(array_key_exists('requestType', $_POST)){
+
+		$requestType =$_POST['requestType'];
+
+		if($requestType == "listFiles"){
+			if (array_key_exists('path', $_POST)) {
+
+		    $path = $_POST['path'];
+		    $requestType = ($_POST['requestType']);
+		    // do stuff with params
+		    listFolderContent($path);			
+			}
+		}
+		else if($requestType == "optionMenuOpenButton"){
+			if(array_key_exists('basePath', $_POST) && array_key_exists('name', $_POST)){
+				
+				$isDirectory = get_file($_POST['basePath'], $_POST['name'])->get_is_directory();
+
+				if($isDirectory){
+					echo '<button onclick="openFolder();" class="btn btn-light btn-outline-dark" type="button" id="button-addon1"> Abrir </button>';
+				}
+
+				
+			}			
+
+		}
+	}
 
 
 ?>

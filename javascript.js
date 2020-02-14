@@ -15,14 +15,17 @@ function getFiles(){
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 document.getElementById("filesSection").innerHTML = this.responseText;
+                document.getElementById("inputPath").value= document.getElementById("current_path").innerHTML;
             }
         };
 
 
+        var requestType = "listFiles";
         var path = document.getElementById("inputPath").value;
 
-        xmlhttp.open("GET","listContent.php?path="+path,true);
-        xmlhttp.send();
+        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("path=" + path + "&requestType=" + requestType);
     
 }
 
@@ -48,6 +51,21 @@ function getParentFolderFiles(){
     
 }
 
+function openFolder(){
+	if(selectedFileName == null){return;}
+
+	var basePath= document.getElementById("current_path").innerHTML;
+
+	if(basePath.slice(-1) == "/"){
+		document.getElementById("inputPath").value = basePath.concat(selectedFileName);
+	}else{
+		document.getElementById("inputPath").value = basePath.concat("/", selectedFileName);
+	}
+
+	getFiles();
+
+}
+
 function fileTouched(fileName){
 	var fileNameText= "file_name_text_";
 
@@ -64,7 +82,34 @@ function fileTouched(fileName){
 
 	selectedFileName= fileName;
 
-  	document.getElementById("optionsDiv").style.display = "block";
+  	openOptionsMenu();
 	document.getElementById(fileNameText.concat(selectedFileName)).style.backgroundColor= "#E8520C";
 	document.getElementById(fileNameText.concat(selectedFileName)).style.color= "white";
+}
+
+function openOptionsMenu(){
+	document.getElementById("optionsDiv").style.display = "block";
+
+	if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("openButtonOptionMenuDiv").innerHTML = this.responseText;
+                document.getElementById("inputPath").value= document.getElementById("current_path").innerHTML;
+            }
+        };
+
+
+        var requestType = "optionMenuOpenButton";
+        var basePath = document.getElementById("current_path").innerHTML;
+        var name = selectedFileName;
+
+        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("basePath=" + basePath + "&name=" + name + "&requestType=" + requestType);
 }

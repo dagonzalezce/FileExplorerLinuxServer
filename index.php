@@ -37,7 +37,8 @@
 			</div>
 		</div>
 		<div class ="w-100 mb-1 mt-3 p-1" style="background-color: white; display: none;" id="optionsDiv">
-			<button onclick="getParentFolderFiles();" class="btn btn-light btn-outline-dark" type="button" id="button-addon1"> Abrir </button>
+			<div id="openButtonOptionMenuDiv"> </div>
+			
 		</div>
 	</nav>
 

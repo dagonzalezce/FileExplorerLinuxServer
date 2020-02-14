@@ -1,63 +1,18 @@
 <?php
 
-	echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">';
+	echo '
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="javascript.js?<?php echo time();?>"></script>
+	';
+ 
+	include 'listContent.php';
 
    	$var1= "Uepaje!";
 
-	chdir('/');
-	
-	//----------------------- Listar archivos
-	exec('ls -l',$filesArray,$error);
 
-	if($error){		
-		echo "Error : $error<BR>n";
-		exit;
-	}
-
-	$files = array();
-
-	foreach ($filesArray as $file) {
-		if (strpos($file, 'total') !== false) { continue;}
-
-		$newFile= new File($file, isDirectory($file));
-		array_push($files, $newFile);
-	}
-
-	function isDirectory($line){
-		// Si la línea empieza con d, es directorio. Si empieza con -, es archivo
-		if(strpos($line, 'd') === 0){
-			return true;
-		}
-
-		return false;
-
-	}
-	//----------------------------------------------
-
-
-	class File{
-		public $name;
-		public $isDirectory;
-
-		function __construct($line, $isDirectory){
-			//quitar espacios extra
-			$line= preg_replace('/\s+/', ' ', $line);
-			//separarlo por espacios
-			$explodedLine = explode(" ", $line);
-			$this->name = $explodedLine[8];
-			$this->isDirectory = $isDirectory;
-		}
-
-		function get_name(){ return $this->name;	}
-		function get_is_directory(){ return $this->isDirectory;	}
-		function get_icon_name(){ 
-			if($this->isDirectory){
-				return "folderIcon.png";
-			}else{
-				return "fileIcon.png";
-			}
-		}
-	}
 ?>
 
 <html>
@@ -67,28 +22,25 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-dark" style="background-color: #4A5159;">
+	<nav class="navbar navbar-dark" style="background-color: #3D3D3D;">
 		<div class="input-group mb-3 w-50">
   			<div class="input-group-prepend">
-    			<button class="btn btn-outline-light btn-dark" style="background-color: #4A5159;" type="button" id="button-addon1"> < </button>
+    			<button class="btn btn-dark" style="background-color: #272727;" type="button" id="button-addon1"> < </button>
   			</div>
-  			<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+  			<input type="text" class="form-control" id="inputPath" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value= <?= $current_path ?>>
   			<div class="input-group-prepend">
-    			<button class="btn btn-outline-light btn-dark" style="background-color: #4A5159;" type="button" id="button-addon1"> Explorar </button>
+    			<button onclick="getFiles();" class="btn btn-dark" style="background-color: #272727;" type="button" id="button-addon1" > Explorar </button>
   			</div>
 		</div>
 	</nav>
 
-	<section class="d-flex flex-row flex-wrap p-4">
-		<?php foreach($files as $file):?>		
-			<div class="fileDiv"> 
-				<img src= <?php echo $file->get_icon_name(); ?> height="120" width = "120">
-				<p class="fileName">  <?php echo $file->get_name(); ?> </p>
-			</div>
-		<?php endforeach; ?>
+	<section class="d-flex flex-row flex-wrap p-4 text-center" id="filesSection">
+		<?php listFolderContent(); ?>
 	</section>
 
-	<p > <?= $var1 ?> </p>
+
+
+<p > <?= $var1 ?> </p>
 </body>
 
 

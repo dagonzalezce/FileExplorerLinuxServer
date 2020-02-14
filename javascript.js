@@ -2,6 +2,9 @@ var selectedFileName;
 
 function getFiles(){
 	
+		document.getElementById("optionsDiv").style.display = "none";
+		selectedFileName= null;
+
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();

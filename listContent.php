@@ -13,6 +13,7 @@
 		
 		exec('ls -l',$filesArray,$error);
 
+
 		if($error){		
 			echo $error;
 			exit;
@@ -161,14 +162,11 @@
 
 		}
 
-	    	function rename($new_name){
+	    function rename($new_name){
 			//$this->rename_command = 'mv '. $this->full_path. ' '. $this->father_route. $new_name;
-			$this->rename_command = 'mv /home/mayra/Documents/hola3.txt /home/mayra/Documents/'. $new_name;
+			$this->rename_command = 'mv '. $this->full_path. ' '. $this->get_full_path($this->father_route,$new_name);
 
-			exec($this->rename_command, $output, $error);
-			print_r($error); 
-
-		
+			exec($this->rename_command, $output, $error);		
 
 		}
 
@@ -203,6 +201,16 @@
 			}			
 
 		}
+		else if($requestType == "renameFile"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) && array_key_exists('newName', $_POST)){
+				
+				$fileToRename = get_file($_POST['basePath'], $_POST['name']);
+				$fileToRename->rename($_POST['newName']);
+				
+			}			
+
+		}
+
 	}
 
 

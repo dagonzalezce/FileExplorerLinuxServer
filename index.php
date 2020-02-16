@@ -37,8 +37,23 @@
 			</div>
 		</div>
 		<div class ="w-100 mb-1 mt-3 p-1" style="background-color: white; display: none;" id="optionsDiv">
-			<div id="openButtonOptionMenuDiv"> </div>
-			
+			<div id="openButtonOptionMenuDiv" style="display:inline-block;"> </div>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalRenombrar">
+			  Renombrar
+			</button>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalEliminar">
+			  Eliminar
+			</button>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalCopia">
+			  Crear copia
+			</button>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalPermisos">
+			  Permisos y propietario
+			</button>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalMover">
+			  Mover
+			</button>
+					
 		</div>
 	</nav>
 
@@ -49,6 +64,146 @@
 
 
 <p > <?= $var1 ?> </p>
+
+
+<!-- Modals -->
+<div class="modal fade" id="modalRenombrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Renombrar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> Ingrese el nuevo nombre: </p>
+        <input type="text" class="form-control" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Eliminar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> ¿Estás seguro de que deseas eliminar este archivo/directorio? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalCopia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Crear copia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> Ingrese la dirección del directorio en la que desea copiar este archivo/directorio </p>        
+        <input type="text" class="form-control" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalPermisos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Permisos y propietario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Lectura</th>
+		      <th scope="col">Escritura</th>
+		      <th scope="col">Ejecución</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">Usuario</th>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		    </tr>
+		    <tr>
+		      <th scope="row">Grupo</th>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>		    
+		    </tr>
+		    <tr>
+		      <th scope="row">Otros</th>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		    </tr>
+		  </tbody>
+		</table>
+
+		<p> Usuario propietario </p>
+		<input type="text" class="form-control" >
+		<p> Grupo propietario </p>
+		<input type="text" class="form-control" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalMover" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Mover</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<p> Ingrese la ruta del directorio al que desea mover este archivo/directorio </p>
+        <input type="text" class="form-control" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 

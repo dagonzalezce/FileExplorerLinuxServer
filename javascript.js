@@ -147,3 +147,119 @@ function renameFile(){
 	}
 
 }
+
+
+function deleteFile(){
+
+	if(selectedFileName!="" ){
+			if (window.XMLHttpRequest) {
+	            // code for IE7+, Firefox, Chrome, Opera, Safari
+	            xmlhttp = new XMLHttpRequest();
+	        } else {
+	            // code for IE6, IE5
+	            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	        }
+	        xmlhttp.onreadystatechange = function() {
+	            if (this.readyState == 4 && this.status == 200) {
+	                getFiles();
+					$('#modalEliminar').modal('hide');
+					console.log(this.responseText);
+	            }
+	        };
+
+
+	        var requestType = "deleteFile";
+	        var basePath = document.getElementById("current_path").innerHTML;
+	        var name = selectedFileName;
+
+
+	        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("basePath=" + basePath + "&name=" + name+ "&requestType=" + requestType);			
+		
+		
+	}       		
+			
+	
+}
+
+function getPermissions(){
+
+	if(selectedFileName!="" ){
+			if (window.XMLHttpRequest) {
+	            // code for IE7+, Firefox, Chrome, Opera, Safari
+	            xmlhttp = new XMLHttpRequest();
+	        } else {
+	            // code for IE6, IE5
+	            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	        }
+	        xmlhttp.onreadystatechange = function() {
+	            if (this.readyState == 4 && this.status == 200) {
+
+			document.getElementById("variableFromPHP").innerHTML = this.responseText;
+
+
+			if(document.getElementById("ruPermission").innerText == '1'){
+				document.getElementById("ruPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("ruPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("wuPermission").innerText  == '1'){
+				document.getElementById("ruPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("ruPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("xuPermission").innerText  == '1'){
+				document.getElementById("xuPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("xuPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("roPermission").innerText  == '1'){
+				document.getElementById("roPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("roPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("woPermission").innerText  == '1'){
+				document.getElementById("woPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("woPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("xoPermission").innerText  == '1'){
+				document.getElementById("xoPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("xoPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("rgPermission").innerText  == '1'){
+				document.getElementById("rgPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("rgPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("wgPermission").innerText  == '1'){
+				document.getElementById("wgPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("wgPermissionCheckBox").checked = false;
+			}
+			if(document.getElementById("xgPermission").innerText  == '1'){
+				document.getElementById("xgPermissionCheckBox").checked = true;
+			}else{
+				document.getElementById("xgPermissionCheckBox").checked = false;
+			}
+
+
+			$('#modalPermisos').modal('show');
+	            }
+	        };
+
+
+	        var requestType = "getPermissions";
+	        var basePath = document.getElementById("current_path").innerHTML;
+	        var name = selectedFileName;
+
+
+	        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("basePath=" + basePath + "&name=" + name+ "&requestType=" + requestType);			
+		
+		
+	}    
+}

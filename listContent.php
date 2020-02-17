@@ -1,6 +1,6 @@
 <?php
 	
-   	$current_path = "/";
+   	$current_path = "/home/mayra";
    	$files = array();
 
 	function listFolderContent($path){
@@ -8,6 +8,13 @@
 		global $current_path;
 
 		chdir($path);
+
+		$current_path= getcwd();
+
+		if(strpos($current_path, "/home/mayra") !== 0){
+			chdir("/home/mayra");
+
+		}
 
 		$current_path= getcwd();
 		
@@ -141,11 +148,11 @@
 			}
 		}
 		function check_permissions($index, $letter){
-			if (strcmp($this->permission[$index], $letter) === 0){
-				return True;
+			if (strcmp($this->permissions[$index], $letter) === 0){
+				return 1;
 			}
 			else{
-				return False;
+				return 0;
 			}
 		}
 
@@ -167,6 +174,14 @@
 			$this->rename_command = 'mv '. $this->full_path. ' '. $this->get_full_path($this->father_route,$new_name);
 
 			exec($this->rename_command, $output, $error);		
+
+		}
+
+	    function delete(){
+			if($this->isDirectory){
+			$this->delete_command= 'rm -R '. $this->full_path;}
+			else{$this->delete_command= 'rm '. $this->full_path;}
+			exec($this->delete_command);
 
 		}
 
@@ -206,6 +221,32 @@
 				
 				$fileToRename = get_file($_POST['basePath'], $_POST['name']);
 				$fileToRename->rename($_POST['newName']);
+				
+			}			
+
+		}
+		
+		else if($requestType == "deleteFile"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) ){
+				$fileToDelete = get_file($_POST['basePath'], $_POST['name']);
+				$fileToDelete->delete();
+				
+			}			
+
+		}
+		
+		else if($requestType == "getPermissions"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) ){
+				$fileWithPermissions = get_file($_POST['basePath'], $_POST['name']);
+				echo '<div id="ruPermission">'. $fileWithPermissions->check_permissions(1,'r') .'</div>';
+				echo '<div id="wuPermission">'. $fileWithPermissions->check_permissions(2,'w') .'</div>';
+				echo '<div id="xuPermission">'. $fileWithPermissions->check_permissions(3,'x') .'</div>';
+				echo '<div id="rgPermission">'. $fileWithPermissions->check_permissions(4,'r') .'</div>';
+				echo '<div id="wgPermission">'. $fileWithPermissions->check_permissions(5,'w') .'</div>';
+				echo '<div id="xgPermission">'. $fileWithPermissions->check_permissions(6,'x') .'</div>';
+				echo '<div id="roPermission">'. $fileWithPermissions->check_permissions(7,'r') .'</div>';
+				echo '<div id="woPermission">'. $fileWithPermissions->check_permissions(8,'w') .'</div>';
+				echo '<div id="xoPermission">'. $fileWithPermissions->check_permissions(9,'x') .'</div>';
 				
 			}			
 

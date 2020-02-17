@@ -10,7 +10,7 @@
  
 	include 'listContent.php';
 
-	$current_path="/";
+	$current_path="/home/mayra";
 
    	$var1 = "Uepaje!";
 
@@ -47,7 +47,7 @@
 			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalCopia">
 			  Crear copia
 			</button>
-			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalPermisos">
+			<button type="button" class="btn btn-light btn-outline-dark" onclick="getPermissions();">
 			  Permisos y propietario
 			</button>
 			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalMover">
@@ -61,8 +61,7 @@
 		<?php listFolderContent($current_path); ?>
 	</section>
 
-
-
+<div id="variableFromPHP" style="display: none;"></div>
 <p > <?= $var1 ?> </p>
 
 
@@ -102,7 +101,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+        <button onclick="deleteFile();" type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
       </div>
     </div>
   </div>
@@ -151,21 +150,21 @@
 		  <tbody>
 		    <tr>
 		      <th scope="row">Usuario</th>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="ruPermissionCheckBox"></td>
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="wuPermissionCheckBox"> </td>
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="xuPermissionCheckBox"></td>
 		    </tr>
 		    <tr>
 		      <th scope="row">Grupo</th>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>		    
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="rgPermissionCheckBox"></td>
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="wgPermissionCheckBox"></td>
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="xgPermissionCheckBox"></td>		    
 		    </tr>
 		    <tr>
 		      <th scope="row">Otros</th>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
-		      <td class="text-center"><input type="checkbox" class="form-check-input"></td>
+		      <td class="text-center" > <input type="checkbox" class="form-check-input" id="roPermissionCheckBox"></td>
+		      <td class="text-center" ><input type="checkbox" class="form-check-input" id="woPermissionCheckBox"></td>
+		      <td class="text-center" > <input type="checkbox" class="form-check-input" id="xoPermissionCheckBox"></td>
 		    </tr>
 		  </tbody>
 		</table>

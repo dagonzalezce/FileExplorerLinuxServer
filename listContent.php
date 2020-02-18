@@ -257,6 +257,15 @@
 			}			
 
 		}
+		else if($requestType == "moveFile"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) && array_key_exists('newdirection', $_POST)){
+				
+				$fileToMove = get_file($_POST['basePath'], $_POST['name']);
+				$fileToMove->move($_POST['newdirection']);
+				
+			}			
+
+		}
 
 	}
 

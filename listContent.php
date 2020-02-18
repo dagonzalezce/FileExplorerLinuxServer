@@ -112,6 +112,9 @@
 		public $full_path;
 		public $father_route;
 		public $rename_command;
+		public $owner;   #variable para propietario
+		public $group;   #variable para grupo
+		public $move_command;  #variable para el comando de mover
 
 		function __construct($line, $isDirectory, $father_route){
 			//quitar espacios extra
@@ -126,14 +129,6 @@
 			$this->full_path = $this->get_full_path($this->father_route, $this->name);
 			
 
-			if (substr($father_route , -1) === '/'){
-
-			    $this->full_path = $father_route. $this->name;
-
-			}
-			else{
-			    $this->full_path = $father_route. '/'. $this->name;
-			}
 			
 			 
 		}
@@ -155,6 +150,10 @@
 				return 0;
 			}
 		}
+		
+		function get_owner(){return $this->owner;}   #función para ver el propietario del archivo
+		
+	    	function get_group(){return $this->group;}   #función para ver el grupo al cual pertenece el archivo
 
 		function get_full_path($basePath, $name){
 
@@ -170,7 +169,7 @@
 		}
 
 	    function rename($new_name){
-			//$this->rename_command = 'mv '. $this->full_path. ' '. $this->father_route. $new_name;
+			
 			$this->rename_command = 'mv '. $this->full_path. ' '. $this->get_full_path($this->father_route,$new_name);
 
 			exec($this->rename_command, $output, $error);		
@@ -184,6 +183,13 @@
 			exec($this->delete_command);
 
 		}
+		
+	#intento de funcion  para mover los archivos	
+	    function move($new_direction){
+			$this->move_command = 'mv '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
+			exec($this->move_command, $output, $error );
+
+	    }
 
 
 	}

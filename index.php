@@ -46,7 +46,7 @@
 			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalEliminar">
 			  Eliminar
 			</button>
-			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalCopia">
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalCopiar">
 			  Crear copia
 			</button>
 			<button type="button" class="btn btn-light btn-outline-dark" onclick="getPermissions();">
@@ -109,7 +109,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="modalCopia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="modalCopiar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -120,11 +120,11 @@
       </div>
       <div class="modal-body">
         <p> Ingrese la dirección del directorio en la que desea copiar este archivo/directorio </p>        
-        <input type="text" class="form-control" >
+        <input type="text" class="form-control" id="copyPathInput">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+        <button onclick = "copyFile();" type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
       </div>
     </div>
   </div>

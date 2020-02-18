@@ -201,6 +201,13 @@
 	    	exec($this->change_permissions_command); 
 	    }
 
+	    function copy($new_direction){
+
+			$this->copy_command = 'cp '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
+
+			exec($this->copy_command, $output, $error );
+	    }
+
 
 	}
 
@@ -304,10 +311,19 @@
 			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) && array_key_exists('permissionsNumber', $_POST)){
 				
 
-				$fileToMove = get_file($_POST['basePath'], $_POST['name']);
+				$fileToChangePermissions = get_file($_POST['basePath'], $_POST['name']);
 
 
-				$fileToMove->change_permissions($_POST['permissionsNumber']);
+				$fileToChangePermissions->change_permissions($_POST['permissionsNumber']);
+				
+			}			
+
+		}		
+		else if($requestType == "copyFile"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) && array_key_exists('newdirection', $_POST)){
+				
+				$fileToCopy = get_file($_POST['basePath'], $_POST['name']);
+				$fileToCopy->copy($_POST['newdirection']);
 				
 			}			
 

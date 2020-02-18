@@ -379,3 +379,37 @@ function changePermissions(){
 			
 	}
 }
+
+function copyFile() {
+	var newdirection = document.getElementById("copyPathInput").value;
+
+	if(selectedFileName!="" ){
+		if(newdirection){
+			if (window.XMLHttpRequest) {
+	            // code for IE7+, Firefox, Chrome, Opera, Safari
+	            xmlhttp = new XMLHttpRequest();
+	        } else {
+	            // code for IE6, IE5
+	            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	        }
+	        xmlhttp.onreadystatechange = function() {
+	            if (this.readyState == 4 && this.status == 200) {
+	                getFiles();
+					$('#modalCopiar').modal('hide');
+					console.log(this.responseText);
+	            }
+	        };
+
+
+	        var requestType = "copyFile";
+	        var basePath = document.getElementById("current_path").innerHTML;
+	        var name = selectedFileName;
+
+	        xmlhttp.open("POST", "listContent.php", true);
+			xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xmlhttp.send("basePath=" + basePath + "&name=" + name+ "&newdirection=" + newdirection + "&requestType=" + requestType);			
+			
+		}
+	}
+	
+}

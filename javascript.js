@@ -205,9 +205,9 @@ function getPermissions(){
 				document.getElementById("ruPermissionCheckBox").checked = false;
 			}
 			if(document.getElementById("wuPermission").innerText  == '1'){
-				document.getElementById("ruPermissionCheckBox").checked = true;
+				document.getElementById("wuPermissionCheckBox").checked = true;
 			}else{
-				document.getElementById("ruPermissionCheckBox").checked = false;
+				document.getElementById("wuPermissionCheckBox").checked = false;
 			}
 			if(document.getElementById("xuPermission").innerText  == '1'){
 				document.getElementById("xuPermissionCheckBox").checked = true;
@@ -335,4 +335,47 @@ function createFile(){
 		
 	}
 	
+}
+
+function changePermissions(){
+
+	var permissionsNumber= 0;
+
+	if(document.getElementById("ruPermissionCheckBox").checked) { permissionsNumber += 400;}
+	if(document.getElementById("wuPermissionCheckBox").checked) { permissionsNumber += 200;}
+	if(document.getElementById("xuPermissionCheckBox").checked) { permissionsNumber += 100;}
+	if(document.getElementById("rgPermissionCheckBox").checked) { permissionsNumber += 40;}
+	if(document.getElementById("wgPermissionCheckBox").checked) { permissionsNumber += 20;}
+	if(document.getElementById("xgPermissionCheckBox").checked) { permissionsNumber += 10;}
+	if(document.getElementById("roPermissionCheckBox").checked) { permissionsNumber += 4;}
+	if(document.getElementById("woPermissionCheckBox").checked) { permissionsNumber += 2;}
+	if(document.getElementById("xoPermissionCheckBox").checked) { permissionsNumber += 1;}
+
+
+	if(selectedFileName!="" ){
+		if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                getFiles();
+				$('#modalPermisos').modal('hide');
+				console.log(this.responseText);
+            }
+        };
+
+
+        var requestType = "changePermissions";
+        var basePath = document.getElementById("current_path").innerHTML;
+        var name = selectedFileName;
+
+        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("basePath=" + basePath + "&name=" + name+ "&permissionsNumber=" + permissionsNumber + "&requestType=" + requestType);			
+			
+	}
 }

@@ -178,7 +178,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+        <button onclick= "changePermissions();" type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
       </div>
     </div>
   </div>

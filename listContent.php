@@ -194,6 +194,13 @@
 
 	    }
 
+	    function change_permissions($permissionsNumber){
+
+	    	$this->change_permissions_command= 'chmod '.$permissionsNumber.' '.$this->full_path;
+
+	    	exec($this->change_permissions_command); 
+	    }
+
 
 	}
 
@@ -290,6 +297,18 @@
 				echo $create_full_path;
 
 				exec($create_command);
+			}			
+
+		}
+		else if($requestType == "changePermissions"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST) && array_key_exists('permissionsNumber', $_POST)){
+				
+
+				$fileToMove = get_file($_POST['basePath'], $_POST['name']);
+
+
+				$fileToMove->change_permissions($_POST['permissionsNumber']);
+				
 			}			
 
 		}

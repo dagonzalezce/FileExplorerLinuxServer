@@ -265,7 +265,7 @@ function getPermissions(){
 }
 
 function moveFile(){
-	var newdirection= document.getElementById("newDirectionInput").value;
+	var newdirection = document.getElementById("newDirectionInput").value;
 
 	if(selectedFileName!="" ){
 		if(newdirection){
@@ -296,4 +296,43 @@ function moveFile(){
 		}
 	}
 
+}
+
+function createFile(){
+	var createFileName = document.getElementById("fileNameCreateInput").value;
+
+	
+	if(createFileName){
+
+		if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                getFiles();
+				$('#modalCrear').modal('hide');
+				console.log(this.responseText);
+            }
+        };
+
+
+        var requestType = "createFile";
+        var basePath = document.getElementById("current_path").innerHTML;
+
+        if(document.getElementById("createFileRadioButton").checked){
+        	var fileType= "file";
+        }else{
+        	var fileType= "directory";
+        }
+
+        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("basePath=" + basePath + "&name=" + createFileName + "&fileType=" + fileType + "&requestType=" + requestType);			
+		
+	}
+	
 }

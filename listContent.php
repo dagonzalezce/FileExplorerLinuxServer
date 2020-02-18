@@ -1,18 +1,20 @@
 <?php
 	
-   	$current_path = "/home/mayra";
+	$required_path= "/home/david";
+   	$current_path =  $required_path;
    	$files = array();
 
 	function listFolderContent($path){
 		global $files;
 		global $current_path;
+		global $required_path;
 
 		chdir($path);
 
 		$current_path= getcwd();
 
-		if(strpos($current_path, "/home/mayra") !== 0){
-			chdir("/home/mayra");
+		if(strpos($current_path, $required_path) !== 0){
+			chdir($required_path);
 
 		}
 
@@ -20,6 +22,7 @@
 		
 		exec('ls -l',$filesArray,$error);
 
+		echo '<div id="current_path" style="display: none;"">'. $current_path .'</div>';
 
 		if($error){		
 			echo $error;
@@ -48,7 +51,7 @@
 
 
 
-		echo '<div id="current_path" style="display: none;"">'. $current_path .'</div>';
+		
 		foreach($files as $file){	
 			$name = $file->get_name();
 			echo '<div class="fileDiv" id="'.$name.'" onclick="fileTouched('."'".$name."'".');" > 
@@ -263,6 +266,30 @@
 				$fileToMove = get_file($_POST['basePath'], $_POST['name']);
 				$fileToMove->move($_POST['newdirection']);
 				
+			}			
+
+		}
+		else if($requestType == "createFile"){
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST)  && array_key_exists('fileType', $_POST)){
+
+				$create_full_path= $_POST['basePath'];
+
+				if (substr($create_full_path , -1) === '/'){
+			 	   $create_full_path =  ($create_full_path. $_POST['name']);
+				}	
+		    	else{
+			    	$create_full_path = ($create_full_path. '/'.  $_POST['name']);
+		    	}
+
+		    	$create_command= "touch ".$create_full_path;
+
+				if(strcmp($_POST['fileType'], "file" ) !== 0){
+					$create_command= "mkdir ".$create_full_path;
+				}
+
+				echo $create_full_path;
+
+				exec($create_command);
 			}			
 
 		}

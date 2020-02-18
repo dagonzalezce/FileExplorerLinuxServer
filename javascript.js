@@ -263,3 +263,37 @@ function getPermissions(){
 		
 	}    
 }
+
+function moveFile(){
+	var newdirection= document.getElementById("newDirectionInput").value;
+
+	if(selectedFileName!="" ){
+		if(newdirection){
+			if (window.XMLHttpRequest) {
+	            // code for IE7+, Firefox, Chrome, Opera, Safari
+	            xmlhttp = new XMLHttpRequest();
+	        } else {
+	            // code for IE6, IE5
+	            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	        }
+	        xmlhttp.onreadystatechange = function() {
+	            if (this.readyState == 4 && this.status == 200) {
+	                getFiles();
+					$('#modalMover').modal('hide');
+					console.log(this.responseText);
+	            }
+	        };
+
+
+	        var requestType = "moveFile";
+	        var basePath = document.getElementById("current_path").innerHTML;
+	        var name = selectedFileName;
+
+	        xmlhttp.open("POST", "listContent.php", true);
+			xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xmlhttp.send("basePath=" + basePath + "&name=" + name+ "&newdirection=" + newdirection + "&requestType=" + requestType);			
+			
+		}
+	}
+
+}

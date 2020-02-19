@@ -205,6 +205,12 @@
 
 			$this->copy_command = 'cp '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
 
+			if($this->isDirectory){
+				$this->copy_command = 'cp -R '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
+			}
+
+			echo $this->copy_command;
+
 			exec($this->copy_command, $output, $error );
 	    }
 

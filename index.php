@@ -55,6 +55,9 @@
 			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalMover">
 			  Mover
 			</button>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalPropietario">
+			  Cambiar propietario o grupo
+			</button>
 					
 		</div>
 	</nav>
@@ -234,6 +237,32 @@
     </div>
   </div>
 </div>
+		
+<div class="modal fade" id="modalPropietario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cambiar propietario o grupo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		
+		<p> Si desea cambiar de propietario modifique propietario, de lo contrario modifique grupo. </p>
+		<p> Ingrese un nuevo proietario </p>
+		<input type="text" class="form-control" id="newOwnerInput">
+		<p> Ingrese un nuevo grupo </p>
+		<input type="text" class="form-control" id="newGroupInput">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button onclick= "changePermissions();" type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>		
+		
 
 </body>
 

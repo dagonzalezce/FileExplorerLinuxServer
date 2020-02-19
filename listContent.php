@@ -118,6 +118,7 @@
 		public $owner;   #variable para propietario
 		public $group;   #variable para grupo
 		public $move_command;  #variable para el comando de mover
+		public $change_owner_command;  # variable para el comando de cambair permiso
 
 		function __construct($line, $isDirectory, $father_route){
 			//quitar espacios extra
@@ -213,6 +214,12 @@
 			echo $this->copy_command;
 
 			exec($this->copy_command, $output, $error );
+	    }
+		
+	   # funcion para cambiar propietario y grupo a la vez
+	    function change_owner($user, $group){
+		    $this-> change_owner_command = 'sudo chown '. $user. ':'. $group. ' -R '. $this->name;
+		    exec($this->change_owner_command, $output, $error);
 	    }
 
 

@@ -128,7 +128,8 @@
 			$this->isDirectory = $isDirectory;
 			$this->permissions = str_split($explodedLine[0]);
 			$this->father_route = $father_route;
-
+			$this->owner = $explodedLine[2];
+			$this->group = $explodedLine[3];
 			$this->full_path = $this->get_full_path($this->father_route, $this->name);
 			
 

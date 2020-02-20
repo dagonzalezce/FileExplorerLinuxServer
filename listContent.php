@@ -119,8 +119,6 @@
 		public $group;   #variable para grupo
 		public $move_command;  #variable para el comando de mover
 		
-		public $change_owner_command;  # variable para el comando de cambiar propietario
-		public $change_group_command;  #variable para el comando de cambiar grupo
 
 		function __construct($line, $isDirectory, $father_route){
 			//quitar espacios extra
@@ -218,33 +216,42 @@
 			exec($this->copy_command, $output, $error );
 	    }
 		
-	  	# cambiar solo propieatrio de un archivo o carpeta
+# cambiar solo propieatrio de un archivo o carpeta
 	    function change_owner($new_owner){
 
-		$this-> change_owner_command = 'sudo chown '. $new_owner. ' '. $this->name;
+
+		$change_owner_command = 'sudo chown '. $new_owner. ' '. $this->full_path;
 
 		if($this->isDirectory){
-				$this-> change_owner_command = 'sudo chown '. $new_owner. ' -R '. $this->name;
+				$change_owner_command = 'sudo chown '. $new_owner. ' -R '. $this->full_path;
 			}
 
-		exec($this->change_owner_command, $output, $error);
+		
+
+		exec($change_owner_command, $output, $error);
+
 		
 		
 	    }
 
-	   	#cambiar solo grupo de un archivo o carpeta
+	#cambiar solo grupo de un archivo o carpeta
 	    function change_group($new_group){
 
-		$this-> change_group_command = 'sudo chgrp '. $new_group. ' '. $this->name;
+		$change_group_command = 'sudo chgrp '. $new_group. ' '. $this->full_path;
 
 		if($this->isDirectory){
-				$this-> change_owner_command = 'sudo chgrp '. $new_group. ' -R '. $this->name;
+				$change_group_command = 'sudo chgrp '. $new_group. ' -R '. $this->full_path;
 			}
 
-		exec($this->change_group_command, $output, $error);
+		
+
+		exec($change_group_command, $output, $error);
+		
+		
 
 	
 	    }
+
 
 
 	}
@@ -363,6 +370,23 @@
 				$fileToCopy = get_file($_POST['basePath'], $_POST['name']);
 				$fileToCopy->copy($_POST['newdirection']);
 				
+			}			
+
+		}
+		else if($requestType == "ChangeOwner"){	
+			if(array_key_exists('basePath', $_POST)  && array_key_exists('name', $_POST)  && array_key_exists('changeType', $_POST) && array_key_exists('newOwnerGroup', $_POST) ){
+				
+				$fileToChange = get_file($_POST['basePath'], $_POST['name']);
+				
+				if(strcmp($_POST['changeType'], "owner") !== 0){
+				    $fileToChange->change_group($_POST['newOwnerGroup']);
+				
+				}
+
+				else{
+					$fileToChange->change_owner($_POST['newOwnerGroup']);
+				}
+	
 			}			
 
 		}

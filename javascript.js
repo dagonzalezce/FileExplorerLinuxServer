@@ -413,3 +413,47 @@ function copyFile() {
 	}
 	
 }
+
+function ChangeOwner(){
+	console.log("HOLA_VAS_BIEN");
+	var changeownergroup = document.getElementById("ownerChangeInput").value;
+
+	
+	if(changeownergroup){
+
+		if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                getFiles();
+				$('#modalCambiar').modal('hide');
+				console.log(this.responseText);
+            }
+        };
+
+
+        var requestType = "ChangeOwner";
+        var basePath = document.getElementById("current_path").innerHTML;
+	console.log("HOLA_VAS_BIEN_2");
+        if(document.getElementById("changeownerRadioButton").checked){
+        	var changeType= "owner";
+		console.log("HOLA_VAS_BIEN_2");
+        }else{
+		
+        	var changeType= "group";
+		console.log("HOLA_VAS_BIEN_2");
+        }
+
+        xmlhttp.open("POST", "listContent.php", true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send("basePath=" + basePath + "&name=" + selectedFileName + "&changeType=" + changeType + "&newOwnerGroup=" + changeownergroup + "&requestType=" + 				requestType);			
+		
+	}
+	
+}
+

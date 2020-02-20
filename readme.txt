@@ -2,7 +2,7 @@
 Trabajo 1 Sistemas Operativos
 
 INTEGRANTES:
--Mayra Patricia Tejada
+-Mayra Patricia Tejada Osorio
 -David Alexander González Céspedes
 
 ////////////////////////////////

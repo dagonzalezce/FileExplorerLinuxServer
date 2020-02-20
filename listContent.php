@@ -175,7 +175,7 @@
 
 	    function rename($new_name){
 			
-			$this->rename_command = 'mv '. $this->full_path. ' '. $this->get_full_path($this->father_route,$new_name);
+			$this->rename_command = 'sudo mv '. $this->full_path. ' '. $this->get_full_path($this->father_route,$new_name);
 
 			exec($this->rename_command, $output, $error);		
 
@@ -183,32 +183,32 @@
 
 	    function delete(){
 			if($this->isDirectory){
-			$this->delete_command= 'rm -R '. $this->full_path;}
-			else{$this->delete_command= 'rm '. $this->full_path;}
+			$this->delete_command= 'sudo rm -R '. $this->full_path;}
+			else{$this->delete_command= 'sudo rm '. $this->full_path;}
 			exec($this->delete_command);
 
 		}
 		
 	#intento de funcion  para mover los archivos	
 	    function move($new_direction){
-			$this->move_command = 'mv '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
+			$this->move_command = 'sudo mv '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
 			exec($this->move_command, $output, $error );
 
 	    }
 
 	    function change_permissions($permissionsNumber){
 
-	    	$this->change_permissions_command= 'chmod '.$permissionsNumber.' '.$this->full_path;
+	    	$this->change_permissions_command= 'sudo chmod '.$permissionsNumber.' '.$this->full_path;
 
 	    	exec($this->change_permissions_command); 
 	    }
 
 	    function copy($new_direction){
 
-			$this->copy_command = 'cp '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
+			$this->copy_command = 'sudo cp '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
 
 			if($this->isDirectory){
-				$this->copy_command = 'cp -R '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
+				$this->copy_command = 'sudo cp -R '. $this->full_path. ' '. $this->get_full_path($new_direction, $this->name);
 			}
 
 			echo $this->copy_command;
@@ -315,6 +315,9 @@
 				echo '<div id="roPermission">'. $fileWithPermissions->check_permissions(7,'r') .'</div>';
 				echo '<div id="woPermission">'. $fileWithPermissions->check_permissions(8,'w') .'</div>';
 				echo '<div id="xoPermission">'. $fileWithPermissions->check_permissions(9,'x') .'</div>';
+
+				echo '<div id="ownerName">'. $fileWithPermissions->get_owner() .'</div>';
+				echo '<div id="groupName">'. $fileWithPermissions->get_group() .'</div>';
 				
 			}			
 

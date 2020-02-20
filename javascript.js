@@ -246,6 +246,10 @@ function getPermissions(){
 			}
 
 
+			document.getElementById("showOwnerInput").value= document.getElementById("ownerName").innerText;
+			document.getElementById("showGroupInput").value= document.getElementById("groupName").innerText;
+
+
 			$('#modalPermisos').modal('show');
 	            }
 	        };

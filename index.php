@@ -58,6 +58,9 @@
 			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalPropietario">
 			  Cambiar propietario o grupo
 			</button>
+			<button type="button" class="btn btn-light btn-outline-dark" data-toggle="modal" data-target="#modalCambiar"> 
+			  Cambiar propietario o grupo 
+			</button>
 					
 		</div>
 	</nav>
@@ -263,6 +266,35 @@
   </div>
 </div>		
 		
+<div class="modal fade" id="modalCambiar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Cambiar propietario o grupo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> Ingrese el nombre del propietario o nombre del grupo: </p>
+        <input type="text" class="form-control" id="ownerChangeInput">
+        <p class="mt-3"> Seleccione cambio de propietario o cambio de grupo: </p>
+        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" >
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="changeownerRadioButton" autocomplete="off" checked> Propietario
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="changegroupRadioButton" autocomplete="off"> Grupo
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-outline-dark" data-dismiss="modal">Cerrar</button>
+        <button onclick="ChangeOwner();" type="button" class="btn btn-primary btn-outline-light" style="background-color: #E8520C;">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 
